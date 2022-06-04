@@ -1,0 +1,66 @@
+{{ define "editor/login.html" }}
+<!DOCTYPE html>
+<head>
+    {{template "view/meta-head.html"}}
+    <title>Simple Blog Editor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js" integrity="sha512-8pbzenDolL1l5OPSsoURCx9TEdMFTaeFipASVrMYKhuYtly+k3tcsQYliOEKTmuB1t7yuzAiVo+yd7SJz+ijFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div class="container-fluid body-container"> 
+        <main>
+            <form>
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="usernameInput">UserName</label>
+                    <input type="input" id="usernameInput" class="form-control" />
+                </div>
+              
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="passwordInput">Password</label>
+                    <input type="password" id="passwordInput" class="form-control" />
+                </div>
+              
+                <!-- 2 column grid layout for inline styling -->
+                <div class="row mb-4">           
+                <!-- Submit button -->
+                <button type="button" class="btn btn-primary btn-block mb-4" onclick="onLogin()">Sign in</button>
+                </div>
+                
+              </form>
+        </main>
+
+
+        <script>
+            function onLogin() {
+                const options = {
+                    headers: {"content-type": "application/json"}
+                }
+
+                const data = {
+                    "username": document.getElementById("usernameInput").value,
+                    "password": md5(document.getElementById("passwordInput").value),
+                }
+
+                const url = '/editor/login';
+                axios.post(url, data, options).then(function(response) {
+                    if (response.status == 200) {
+                        let allCookies = document.cookie
+                        window.location.href = "/editor";
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                    alert('error');
+                });
+            }
+        </script>
+        
+    </div>
+</body>
+
+
+
+</html>
+
+{{ end }}

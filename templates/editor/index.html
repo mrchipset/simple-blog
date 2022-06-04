@@ -1,0 +1,91 @@
+{{ define "editor/index.html" }}
+<!DOCTYPE html>
+<head>
+    {{template "view/meta-head.html"}}
+    <title>Simple Blog Editor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css" integrity="sha512-YzwGgFdO1NQw1CZkPoGyRkEnUTxPSbGWXvGiXrWk8IeSqdyci0dEDYdLLjMxq1zCoU0QBa4kHAFiRhUL3z2bow==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="container-fluid body-container justify-content-center"> 
+        <nav class="navbar navbar-expand-lg bg-light sticky-top">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form class="d-flex" role="search">
+                    <button class="btn btn-outline-success" type="input" onclick="newPost()">New</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <main>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Update Date</th>
+                        <th scope="col">Posted</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {{ range $i, $post := .posts }}
+                    <tr>
+                        <th scope="row">{{Inc $i}}</th>
+                        <td>{{$post.Title}}</td>
+                        <td>{{$post.UpdateDate}}</td>
+                        {{ if $post.Published}}
+                        <td><i class="bi bi-check-circle-fill" style="color: green;"></i></td>
+                        {{ else }}
+                        <td></td>
+                        {{- end }}
+                        <td><button type="button" class="btn btn-primary" onclick="editPost('{{ .UUID }}')">Edit</button></td>
+                        <td><button type="button" class="btn btn-danger" onclick="deletePost('{{ .UUID }}')">Delete</button></td>
+                    </tr>
+                    {{- end }}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+
+<script>
+    // create a new post with axios and jump to editor view
+    function newPost() {
+        axios.post('/editor/create', "")
+            .then(function (response) {
+                if (response.status == 200) {
+                    uuid = response.data;
+                    url =  window.location.protocol + '//' + window.location.host + '/editor/compose/' + uuid;
+                    window.location.href = url;
+                }
+            }).catch(function (error) {
+                console.log(error)
+                alert('error')
+            });
+    }
+
+    // delete the post with uuid and remove the row
+    function deletePost(uuid) {
+        const url = '/editor/delete/' + uuid
+        axios.post(url).then(function(response) {
+            if (response.status == 200) {
+                alert("delete ok!")
+                location.reload()
+            }
+        }).catch(function (error) {
+            console.log(error)
+            alert('error')
+        });
+    }
+
+    // edit the post and jump to editor view
+    function editPost(uuid) {
+        window.open('/editor/compose/' + uuid)
+    }
+</script>
+</html>
+
+{{ end }}

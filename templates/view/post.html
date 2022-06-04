@@ -1,0 +1,40 @@
+{{ define "view/post.html" }}
+<!DOCTYPE html>
+<head>
+    {{template "view/meta-head.html"}}
+    <link href="/css/post.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid body-container">
+        <div class="row full-height-row justify-content-center">
+          <div class="col-2 left-avater-bar fix-top left-col">
+            <div class="card full-height-row justify-content-center">
+              <div class="card-body">
+                <h5 class="card-title">Simple Blog</h5>
+                <p class="card-text">This is a simple blog to share my coding experiences.</p>
+                <div class="position-relative">
+                    <img class="img-thumbnail rounded-circle" src="/resources/thumb_nail.jpg" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-8 m-2" style="height: 96%;">
+            {{template "view/nav-bar.html"}}
+            <div class="content-row">
+            <main>
+                <h2>{{ .title }}</h2>
+                <hr class="border-primary border-3 opacity-75">
+                <div class="post-content">
+                    {{ .content }}
+                </div>
+            </main>
+            </div>
+            {{template "view/footer.html"}}
+          </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+{{end}}

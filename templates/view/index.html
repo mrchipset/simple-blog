@@ -1,0 +1,76 @@
+{{ define "view/index.html" }}
+<!DOCTYPE html>
+<head>
+    {{template "view/meta-head.html"}}
+    <link href="/css/main.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid body-container">
+        <div class="row full-height-row justify-content-center">
+          <div class="col-2 left-avater-bar fix-top left-col">
+            <div class="card full-height-row justify-content-center">
+              <div class="card-body">
+                <h5 class="card-title">Mr. Chip's Blog</h5>
+                <p class="card-text">This is a simple blog to share my coding experiences.</p>
+                <div class="position-relative">
+                    <img class="img-thumbnail rounded-circle" src="/resources/thumb_nail.jpg" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-8 m-2">
+            {{template "view/nav-bar.html"}}
+            <div class="content-row">
+            <main>
+              <div class="d-grid gap-1">
+                <!-- post table -->
+                {{ range .posts }}
+                  <div class="card card-margin">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ .Title }}</h5>
+                      <p class="card-text">{{ .Summary }}</p>
+                      <!-- Change to post link -->
+                      <a href="{{ .Link }}" class="btn btn-primary">Read more</a>
+                    </div>
+                  </div>
+                {{ end }}
+
+                <!-- pagination nav bar -->
+                {{ $post_count :=  (.posts | len) }}
+                {{ if (ge $post_count 1) }}
+                <div class="m-auto center-block gap-3">
+                  <nav aria-label="pagination">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item">
+                        <a class="page-link" href="/?page={{.pagenation.Prev}}" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      {{ range $i, $page := .pagenation.Pages }}
+                      <li class="page-item"><a class="page-link" href="/?page={{$page}}">{{$page}}</a></li>
+                      {{ end }}
+                      <li class="page-item">
+                        <a class="page-link" href="/?page={{.pagenation.Next}}" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+                {{ end }}
+                
+                
+              </div>
+              
+            </main>
+            </div>
+            
+            {{template "view/footer.html"}}
+          </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+{{end}}

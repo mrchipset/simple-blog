@@ -1,0 +1,49 @@
+body {
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.body-container {
+    height: 100%;
+    overflow: auto;
+}
+
+.full-height-row {
+    height: 100vh;
+}
+
+.full-height-container {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.fix-top {
+    top: 0px;
+    position: fixed;
+}
+
+.fix-at-bottom {
+    position: absolute;
+    bottom: 0px;
+}
+
+.left-avater-bar {
+    height: 100vh;
+    left: 0px;
+    position: fixed;
+}
+
+.left-col {
+    min-width: 250px;
+}
+
+.content-row {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-margin {
+    margin: 20px;
+}

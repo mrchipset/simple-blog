@@ -1,0 +1,46 @@
+POST http://localhost:8080/editor/save HTTP/1.1
+content-type: text/plain
+
+This is a summary of my content
+```c
+void main() {
+    printf("foo bar\\n");
+}
+```
+$$ y = ax + b $$
+
+<!--more-->
+Hello
+
+### new post
+POST http://localhost:8080/editor/create HTTP/1.1
+content-type: text/plain
+
+### delete post
+POST http://localhost:8080/editor/delete/a9b7ba41-96a3-4c14-9edf-f0b51b0b823f HTTP/1.1
+content-type: text/plain
+### publish post
+POST http://localhost:8080/editor/publish/27cc435a-42ff-4e12-a0cc-dcdcdf5abf06 HTTP/1.1
+content-type: application/json
+
+{
+    "post": {
+        "title": "post1",
+        "summary": "",
+        "link": "",
+        "public_state": false
+    },
+    "content": {
+        "content": "IyBJbnRybw0KR28gYWhlYWQsIHBsYXkgYXJvdW5kIHdpdGggdGhlIGVkaXRvciEgQmUgc3VyZSB0byBjaGVjayBvdXQgKipib2xkKiogYW5kICppdGFsaWMqIHN0eWxpbmcsIG9yIGV2ZW4gW2xpbmtzXShodHRwczovL2dvb2dsZS5jb20pLiBZb3UgY2FuIHR5cGUgdGhlIE1hcmtkb3duIHN5bnRheCwgdXNlIHRoZSB0b29sYmFyLCBvciB1c2Ugc2hvcnRjdXRzIGxpa2UgYGNtZC1iYCBvciBgY3RybC1iYC4NCg0KJmx0OyEtLW1vcmUtLSZndDsNCiMjIExpc3RzDQpVbm9yZGVyZWQgbGlzdHMgY2FuIGJlIHN0YXJ0ZWQgdXNpbmcgdGhlIHRvb2xiYXIgb3IgYnkgdHlwaW5nIGAqIGAsIGAtIGAsIG9yIGArIGAuIE9yZGVyZWQgbGlzdHMgY2FuIGJlIHN0YXJ0ZWQgYnkgdHlwaW5nIGAxLiBgLg0KDQojIyMjIFVub3JkZXJlZA0KKiBMaXN0cyBhcmUgYSBwaWVjZSBvZiBjYWtlDQoqIFRoZXkgZXZlbiBhdXRvIGNvbnRpbnVlIGFzIHlvdSB0eXBlDQoqIEEgZG91YmxlIGVudGVyIHdpbGwgZW5kIHRoZW0NCiogVGFicyBhbmQgc2hpZnQtdGFicyB3b3JrIHRvbw0KDQojIyMjIE9yZGVyZWQNCjEuIE51bWJlcmVkIGxpc3RzLi4uDQoyLiAuLi53b3JrIHRvbyENCg0KIyMgV2hhdCBhYm91dCBpbWFnZXM/DQohW1llc10oaHR0cHM6Ly9pLmltZ3VyLmNvbS9zWmxrdFk3LnBuZyk=",
+        "checksum": "md5-checksum"
+    }
+}
+
+### login
+POST http://localhost:8080/editor/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "admin",
+    "password": "489647bfe795f2d6c9ea6c42b9ed8915"
+}
