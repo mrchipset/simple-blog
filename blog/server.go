@@ -2,6 +2,8 @@ package blog
 
 import (
 	"html/template"
+	"os"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/thinkerou/favicon"
@@ -19,6 +21,9 @@ func CreateServer() *gin.Engine {
 		"PrepareContent": PrepareContent,
 	}))
 
+	trustedProxies := os.Getenv("TRUSTED_PROXIES")
+	proxies := strings.Split(trustedProxies, ";")
+	r.SetTrustedProxies(proxies)
 	r.LoadHTMLGlob("templates/**/*")
 	view := r.Group("/")
 	{
